@@ -3,12 +3,14 @@ import yfinance as yf
 import matplotlib.pyplot as plt
 import time
 import requests
+import os
+
 
 # -----------------------------
 # TELEGRAM SETUP
 # -----------------------------
-TOKEN = "8616334658:AAHn0BO4EhLLRiUfGVAqtSs1zolch8qIs80"
-CHAT_ID = 8465330966
+TOKEN = os.getenv("TOKEN")
+CHAT_ID = os.getenv("CHAT_ID")
 
 def send_telegram(msg):
     try:
