@@ -2,7 +2,7 @@ name: Trading Bot Runner
 
 on:
   schedule:
-    - cron: "0 */1 * * *"   # runs every 1 hour
+    - cron: "0 * * * *"   # every hour
   workflow_dispatch:
 
 jobs:
@@ -19,8 +19,10 @@ jobs:
           python-version: "3.10"
 
       - name: Install dependencies
-        run: |
-          pip install pandas yfinance matplotlib requests
+        run: pip install pandas yfinance requests
 
       - name: Run bot
+        env:
+          TOKEN: ${{ secrets.TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
         run: python bot.py
