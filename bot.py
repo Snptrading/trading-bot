@@ -114,7 +114,7 @@ if data is not None:
     ax2.grid(True)
 
     plt.tight_layout()
-    plt.show()   # ✅ BLOCKING → ensures proper rendering
+#    plt.show()   # ✅ BLOCKING → ensures proper rendering
 
 
 # -----------------------------
