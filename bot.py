@@ -32,14 +32,12 @@ def send_telegram(msg):
 # -----------------------------
 def run_strategy():
     try:
-        # Reduced data size → faster + safer
         data = yf.download("^GDAXI", period="2y", interval="1h")
 
         if data.empty:
             print("No data received!")
             return None
 
-        # Fix multi-index if present
         if isinstance(data.columns, pd.MultiIndex):
             data.columns = data.columns.get_level_values(0)
 
@@ -52,9 +50,6 @@ def run_strategy():
 
         data["Lower"] = data["Mean"] - 1.5 * data["Std"]
         data["Upper"] = data["Mean"] + 1.5 * data["Std"]
-
-        # Optional trend filter (reduces false signals)
-  #      data["Trend"] = data["Close"].rolling(100).mean()
 
         # Signals
         data["Signal"] = 0
@@ -93,7 +88,6 @@ def main():
             data.index >= (data.index.max() - pd.Timedelta(hours=48))
         ].copy()
 
-        # Safe timezone handling
         if last_48h.index.tz is not None:
             last_48h.index = last_48h.index.tz_convert(None)
 
@@ -104,12 +98,14 @@ def main():
 
     except Exception as e:
         print("Error printing last 48h:", e)
-# -----------------------------
-# TEST TELEGRAM
-# -----------------------------
-send_telegram("✅ Bot started successfully")
+
     # -----------------------------
-    # SEND TELEGRAM SIGNAL
+    # TELEGRAM START MESSAGE
+    # -----------------------------
+    send_telegram("✅ Bot started successfully")
+
+    # -----------------------------
+    # SEND SIGNAL
     # -----------------------------
     if last_signal == 1:
         msg = f"{last_date}\n🟢 BUY\nPrice: {last_price:.2f}"
