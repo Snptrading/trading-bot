@@ -33,7 +33,7 @@ def send_telegram(msg):
 def run_strategy():
     try:
         # Reduced data size → faster + safer
-        data = yf.download("^GDAXI", period="6mo", interval="1h")
+        data = yf.download("^GDAXI", period="2y", interval="1h")
 
         if data.empty:
             print("No data received!")
@@ -54,12 +54,12 @@ def run_strategy():
         data["Upper"] = data["Mean"] + 1.5 * data["Std"]
 
         # Optional trend filter (reduces false signals)
-        data["Trend"] = data["Close"].rolling(100).mean()
+  #      data["Trend"] = data["Close"].rolling(100).mean()
 
         # Signals
         data["Signal"] = 0
-        data.loc[(data["Close"] < data["Lower"]) & (data["Close"] > data["Trend"]), "Signal"] = 1
-        data.loc[(data["Close"] > data["Upper"]) & (data["Close"] < data["Trend"]), "Signal"] = -1
+        data.loc[data["Close"] < data["Lower"], "Signal"] = 1
+        data.loc[data["Close"] > data["Upper"], "Signal"] = -1
 
         return data
 
@@ -104,7 +104,10 @@ def main():
 
     except Exception as e:
         print("Error printing last 48h:", e)
-
+# -----------------------------
+# TEST TELEGRAM
+# -----------------------------
+send_telegram("✅ Bot started successfully")
     # -----------------------------
     # SEND TELEGRAM SIGNAL
     # -----------------------------
