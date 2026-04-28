@@ -2,6 +2,7 @@ import pandas as pd
 import yfinance as yf
 import requests
 import os
+import time
 
 # -----------------------------
 # TELEGRAM SETUP
@@ -124,6 +125,13 @@ def main():
 # -----------------------------
 # RUN SCRIPT
 # -----------------------------
+
+def run_bot():
+    print("Running bot...")
+    # your logic
+
+
 if __name__ == "__main__":
-    print("🚀 Bot started")
-    main()
+    while True:
+        run_bot()
+        time.sleep(300)
