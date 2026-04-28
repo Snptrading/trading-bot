@@ -134,4 +134,4 @@ def run_bot():
 if __name__ == "__main__":
     while True:
         run_bot()
-        time.sleep(300)
+        time.sleep(3600)
