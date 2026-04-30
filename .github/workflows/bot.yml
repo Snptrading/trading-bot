@@ -3,7 +3,7 @@ name: Trading Bot Runner
 on:
   schedule:
     - cron: '0/5 * * * *'
-  #workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   run-bot:
