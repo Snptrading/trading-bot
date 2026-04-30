@@ -1,3 +1,4 @@
+# keep alive
 import pandas as pd
 import yfinance as yf
 import requests
@@ -120,7 +121,6 @@ def main():
 
     else:
         print("No signal → nothing sent")
-
 
 # -----------------------------
 # RUN SCRIPT
